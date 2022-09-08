@@ -1,0 +1,121 @@
+<script type="text/javascript">
+	<!--
+	$(document).ready(function()
+		{
+			$(".productform, .add-form").submit(function()
+				{
+					switch($(this).attr("action"))
+						{
+							case "/purchase-confirmation":
+							case "/flomax-questions":
+							return true;
+							default:
+							//$.blockUI({ message: 'Adding product to basket...<br><br><img src="/images/core/atb-loading2.gif">' }); 
+							$id = $(this).attr("id");
+							$.get("/includes/code/add-to-basket.php", $(this).serialize(), function(data)
+								{
+									if(data=="success")
+										{
+											$("#live-basket-display").load("/includes/code/reload-live-basket.php", function()
+												{
+													//setTimeout("$.unblockUI();",200);
+													//setTimeout("$.fn.positionLoadOverlay();",400);
+													$("#live-basket").slideDown(300, function()
+														{
+															$pip = $id.replace("prodform_","");
+															$("#lbprod-"+$pip).animate({backgroundColor: '#ccd6e5' }, 300);
+															$("#lbprod-"+$pip).addClass("prod-added");
+															setTimeout("$('#lbprod-"+$pip+"').animate({backgroundColor: '#ffffff' }, 600); $('#lbprod-"+$pip+"').removeClass('prod-added');",3400);
+						                                   	setTimeout("$('#live-basket').slideUp(300);",4000);
+														});
+												});
+										}
+									else
+										{
+											alert("Our records show that this basket is currently being paid for at our payment server, and as such has been locked from edit.\n\nTo make changes to this basket, please cancel (abort) the transaction, or wait fifteen minutes");
+										}
+								});
+						}
+					return false;
+				});
+			
+			function triggerBasketAction($pip)
+				{	
+					$("#live-basket-display").load("/includes/code/reload-live-basket.php", function()
+						{
+							//setTimeout("$.unblockUI();",200);
+							//setTimeout("$.fn.positionLoadOverlay();",400);
+							$("#live-basket").slideDown(300, function()
+								{
+									$("#lbprod-"+$pip).animate({backgroundColor: '#ccd6e5' }, 300);
+									$("#lbprod-"+$pip).addClass("prod-added");
+									setTimeout("$('#lbprod-"+$pip+"').animate({backgroundColor: '#ffffff' }, 600); $('#lbprod-"+$pip+"').removeClass('prod-added');",3400);
+									setTimeout("$('#live-basket').slideUp(300);",4000);
+								});
+						});
+				}
+			
+			
+			$('.script_disable').val('script-available');
+				
+			function updateQuantity(str)
+				{
+					if(str != "manual")
+						{
+							if(str == "increase")
+								{
+									$("#quant").val(parseInt($("#quant").val()) + 1);
+								}
+							else
+								{
+									if(	parseInt($("#quant").val()) > 1)
+										{
+											$("#quant").val(parseInt($("#quant").val()) - 1);
+										}
+								}
+						}
+					else
+						{
+							if(isNaN($("#quant").val()) || $("#quant").val() == "" || $("#quant").val() == 0)
+								{
+									$("#quant").val(1);
+								}
+						}
+				}
+
+			$("#decrease-quantity-a").click(function()
+				{
+					updateQuantity("decrease")
+					return false;
+				});
+				
+			$("#increase-quantity-a").click(function()
+				{
+					updateQuantity("increase")
+					return false;
+				});
+				
+			$("#quant").blur(function()
+				{
+					updateQuantity("manual")
+				});
+
+			$("#close-overlay a, #overlay-continue-shopping a").click(function()
+				{
+					$("#live-basket-overlay").fadeTo(600, 0.01, function()
+						{
+							$(this).stop().css({"left":"-500px","top":"-500px"});
+						});
+					return false;
+				});
+
+			$.fn.positionLoadOverlay = function()
+				{
+				//var pos = $("#live-basket").offset();
+				//$("#live-basket-overlay").stop().css( { "left": (pos.left - 420)+"px", "top": "23px" } ).fadeTo(900,1, function () {
+				//	setTimeout("$('#live-basket-overlay').stop().fadeTo(500,0.01, function () { $(this).css({'left':'-500px','top':'-500px'}); });",2500);
+				//});
+				};
+		});
+	//-->
+</script>

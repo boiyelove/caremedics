@@ -1,0 +1,458 @@
+
+{% extends 'base.html' %}
+{% load staticfiles %}	
+{% block content %}
+	<body class="home" >
+    
+    <div id="fb-root"></div>
+	<script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=240142796072835";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    
+	
+    <div id="top-marker"><a name="top"></a></div><div id="debugging"></div>
+				<div id="container">
+                <!--start live basket-->
+                <div id="lbOuterContainer">
+                	<div id="lbInnerContainer">
+                		<div id="lbPositionCont">
+                			<div id="lbBgCont">
+                				<div id="live-basket-display">
+                					<div id="lbd-display-line">
+										<div id="lbd-title">
+                                        	<span class="bold">My Basket</span>
+                                        </div>
+                						<div id="lbd-summary">
+                							{% if empty %}
+
+{{ empty_messsage }}
+
+{% else %}
+
+Item	Price		Qty
+Total: {{ basket.total }}
+
+{% for item in basket.basketitem_set.all %}
+{{ item.product }} 
+{% if item.variations.all %}
+		{% for subitem in item.variations.all %}
+		{{ subitem.category|capfirst }} : {{ subitem.title|capfirst }}
+		{% endfor %}
+{% endif %}
+{{ item.product.price }}
+{{ item.quantity }}
+<a href = '{% url "remove_from_basket" item.id %}'>Remove</a>
+{% endfor %}
+<br />
+<a href = '{% url "checkout" %}'>Checkout</a>
+{% endif %}
+0 items											 (total price <strong>&pound;0.00</strong>)
+                                        </div>
+                                        
+                                        
+                					</div>
+                					<div id="live-basket">
+					<p class="tac"><!--you have no items in your basket-->empty your basket is.</p>
+                					</div>
+                				</div>
+                			</div>
+                		</div>
+                	</div>
+                </div>
+
+        <script type="text/javascript">
+		<!--
+			$("#live-basket-display").hoverIntent(function()
+				{
+					$("#live-basket").slideDown(300);
+				}, function() {
+					$("#live-basket").slideUp(300);
+				});
+		-->
+        </script>
+        <!--end live basket-->
+                <div id="head">
+                    <div id="logo">
+                        <a href="/"><img src="{% static 'img/Caremedicsl.jpg' %}" height = 100px width=400px alt="HI CareMedics logo" title="Click to go to homepage" /></a>
+                    </div>
+                    
+                    <div id="head-right">
+                
+                    			<!--start site tools-->
+			<div id="site-tools">
+				<a href="/customer-care">Contact Us</a>&nbsp;|&nbsp;
+				<a href="/about">About Us</a>&nbsp;|&nbsp;
+				<a href="/branch-finder">Branch Finder</a>&nbsp;|&nbsp;
+				<a href="/delivery">Delivery</a>&nbsp;|&nbsp;
+	<a href="/login">Login / Register</a>			</div>
+			<!--end site tools-->
+	
+
+	<script type="text/javascript">
+ 					function checkcurrent() {
+						return ($("#iac").val()==1) ? false : true;
+					}
+				
+					var search_options = {
+						script: function (input) { return "/includes/code/search_main.php?input="+input; },
+						varname:"input"
+					};
+					
+					//var as_xml = new bsn.AutoSuggest('search_words', search_options);                
+	 
+</script>
+                    <div class="r">
+                    	
+                        <form method="get" action="/s/" onsubmit="return checkcurrent();" id="search-bar" class="search-form">
+                            
+                            <input placeholder="Search Product Name" type="text" class="text-box l" name="q" id="search_words" value="" autocomplete="off" />
+                            <input type="hidden" id="iac" value="0" />
+                            <input type="hidden" name="filters" value="/s/" />
+                            <button type="submit" class="btn btn-default">Submit</button>
+          
+            
+         					 
+          
+                            <div class="clear"></div>
+                       </form>
+                   </div>         
+                </div>
+                <div class="clear"></div>
+                
+                <div class="mb10 mt10">
+                	<!-- THe free stuff above the menu bar -->
+                </div>
+              <!-- --------------The Nav Bar--------------------- -->
+              {% include 'navbar.html' %}
+
+				<script type="text/javascript">
+				<!--
+				$(document).ready(function() {
+					$(".nojs").removeClass("nojs");
+					$("#nav>ul").superfish();
+				});
+				-->
+				</script>
+				<div id="content">
+						<div id="right">
+	                <div class="slider-wrapper theme-light">
+                    <div class="ribbon"></div>
+                    <div id="nivoslider-131" class="nivoSlider">
+                                                            <a href="https://www.weldricks.co.uk/search?q=patterson&filters=/search/non-presc/brand/patterson-medical"><img src="/images/general/adverts/pattersons-new-range.png?time=1443221580" alt="Patterson Medical"></a>
+                                                            <a href="https://www.weldricks.co.uk/product/3445418_alli-60mg-capsules-pack-of-84" class="nojs"><img src="/images/general/adverts/alli-banner.png?time=1443221580" alt="Alli - Back in Stock"></a>
+                                                            <a href="https://www.weldricks.co.uk/product/3471497_niquitin-minis-4mg-mint-pack-of-60" class="nojs"><img src="/images/general/adverts/niquitin-minis.png?time=1443221580" alt="Niquitin Minis"></a>
+                                                            <a href="https://www.weldricks.co.uk/search?q=lyclear&filters=/search/non-presc/brand/lyclear" class="nojs"><img src="/images/general/adverts/lyclear-banner.jpg?time=1443221580" alt="Lyclear Range"></a>
+                                                            <a href="http://weldricks.co.uk/online-doctor/" class="nojs"><img src="/images/general/adverts/odbanner.png?time=1443221580" alt="online dr"></a>
+                                                            <a href="/repeat-prescriptions" class="nojs"><img src="/images/general/adverts/repeat-banner.png?time=1443221580" alt="repeat-online"></a>
+                                            </div>
+                </div>
+    
+
+                <div id="tab-bar" class="none">
+					                    <a href="?t=as-seen-on-tv" title="As Seen On TV">As Seen On TV</a>
+                                        <a href="?t=special-offers" title="Special Offers">Special Offers</a>
+                                        <a href="?t=top-sellers" title="Top Sellers">Top Sellers</a>
+                                    </div>
+
+
+
+	<div id="main-tabs"><div class="innertab active" id="subtab-as-seen-on-tv"> 
+
+
+      
+	{% for product in products %}
+        <form action="add_to_basket" method="post" class="productform" id="prodform_5551099563">
+        	<input class="script_disable" type="hidden" name="no-script-available" value="no-script-available">
+                <div class="thumb-list-entry" id="prod_5551099563">
+                        <div class="thumb-list-top">
+                                <div class="thumb-list-image">
+
+                                                                        <a href="{{ product.get_absolute_url }}">
+									<img class="newImg" height = 100px width = 100px src="{{ product.image.url }}" alt="{{ product.title }}"></a>
+									{% if product.free_del %}
+<h6 class="free-del">FREE DELIVERY *</h6>      {% endif %}                          </div>
+
+                                <p><a href="{{ product.get_absolute_url }}">{{ product.title }}</a></p>
+                                
+                            		<p class="thumb-pip">Product Code: 5551099563</p>
+                    			                                
+                        </div>
+                        
+                                                <div class="thumb-rrp">
+                        	<p class="rep"><span class="rrp">RRP &pound;87.50</span></p>
+                            <p class="sep">&nbsp;|&nbsp;</p>
+                            <p class="sav">SAVE &pound;37.51</p>
+                            <p class="c"></p>
+                        </div>
+						                        
+                        <div class="thumb-price">now &pound;49.99</div>
+            			<div class="thumb-btn">
+            			                                	<input type="image" src="/images/core/buy-now.png" alt="Buy Now" onclick="_gaq.push(['_trackEvent', 'Product Listing', 'Buy Now Click', '5551099563']); return true;">
+                        						</div>
+                        
+
+                        <input type="hidden" name="quant" id="qty5551099563" value="1">
+                        <input type="hidden" name="pip" id="pip5551099563" value="5551099563">
+                        <input type="hidden" name="prod" value="add5551099563">
+                        <input type="hidden" name="process" value="detailadd">
+                </div>
+        </form>
+      
+	 	
+
+{% endfor %}   
+<p class='c'></p> 
+
+<p class='c'></p><div class="c mb40"><p class="l mr10 mt1">If the search did not bring up your required Product it could be because it is a non Prescription Item: </p><a href="/search?q=&filters=%2Fsearch%2Fnon-presc" class="redBtnS l">Search for ""</a><div class="c"></div></div><div class="c"></div><p class='c'></p></div></div><!-- Add in a banner here for free delivery -->
+			<div style="margin:20px 0 20px;border:1px solid #cccccc">
+				<a href="/delivery"><img src="/images/general/del.jpg" alt="Free delivery on all orders over &pound;35" /></a>
+			</div>			<script type="text/javascript">
+			$(document).ready(function(){
+				$("#nivoslider-131").nivoSlider({
+					effect:"random",
+					slices:15,
+					boxCols:8,
+					boxRows:4,
+					animSpeed:500,
+					pauseTime:6000,
+					startSlide:0,
+					directionNav:true,
+					controlNav:true,
+					controlNavThumbs:false,
+					pauseOnHover:false,
+					manualAdvance:false
+				});
+			});
+			</script>
+</div>                            <!-- "left" column -->
+                            <div id="left">
+                                <!-- side menu -->
+								                                        
+                                        <div class="mb20">
+                                            <a href="/prescriptions"><img src="/images/assets/got-prescription.jpg" alt="Need a prescription fulfilling?" /></a>
+                                        </div>
+                                        
+                                        <div class="del-ad">
+											<h2><span class="bold">free</span> uk delivery<sup>*</sup></h2>
+											<p>on all orders over <span>&pound;35</span> and under <span>4Kg</span></p>
+											<ul>
+												<li>Fast UK Delivery</li>
+												<li>Reliable Customer Service</li>
+												<li>Lowest Prices</li>
+												<li>Trusted Service</li>
+												<li>Fully Secure</li>
+												<li>Qualified Pharmacists</li>
+											</ul>
+											<p><sup>*</sup>standard UK delivery <a href="/delivery" alt="click for delivery information" title="click for delivery information">click for info</a></p>
+										</div>
+                                                <div class="mb20">
+													<a href="/online-doctor/"><img src="/media/online-dr-side-banner.jpg" alt="Online Doctor" /></a>
+												</div>
+                                                
+                                                
+                                                                                              
+                                                <div class="mb20">
+													<a href="/repeat-prescriptions"><img src="/media/repeat-side-banner.jpg" alt="Online Repeat Prescriptions" /></a>
+												</div>
+                                                
+																								
+												<div class="mb20">
+													<a href="/bulk-buy.php"><img src="/media/bulk-buy-side.jpg" alt="Bulk Buying? Great prices" /></a>
+												</div>
+												
+												<div class="mb20 none">
+													<a href="/bmi.php"><img src="/media/bmi.png" alt="Calculate your BMI" /></a>
+												</div>
+									
+												<div class="mb20">
+													<a href="/click-and-collect.php"><img src="/media/click-and-collect-side-banner.png" alt="Click and Collect" /></a>
+												</div>
+                                                
+                                                <div class="mb20">
+													<a href="http://www.masta-travel-health.com"><img src="/media/masta-side-banner.png" alt="Masta" /></a>
+												</div>
+                                                
+                                                 <div class="mb20">
+													<a href="https://www.weldricks.co.uk/flexiseq"><img src="/media/flexiseq-side-banner.jpg" alt="Flexiseq" /></a>
+												</div>
+                                                
+                                                <div class="mb20">
+													<a href="https://www.weldricks.co.uk/regaine-information"><img src="/media/regaine-side-banner.jpg" alt="Regaine" /></a>
+												</div>
+                                                
+                                                <div class="mb20">
+													<a href="https://www.weldricks.co.uk/search?q=alli&filters=/search/non-presc/brand/alli"><img src="/media/alli-side-banner.png" alt="Alli" /></a>
+												</div>
+                                                
+                                                <div class="mb20">
+													<a href="https://www.weldricks.co.uk/search?q=flexitol&filters=/search/non-presc/brand/flexitol"><img src="/media/flexitol-side-banner.jpg" alt="Flexitol" /></a>
+												</div>
+                                                
+                                                <div class="mb20">
+													<a href="https://www.weldricks.co.uk/ultradex-landing-page"><img src="/media/ultradex-side-banner.jpg" alt="Ultradex" /></a>
+												</div>
+                                                
+                                                <div class="mb20">
+													<a href="https://www.weldricks.co.uk/sunsense-landing-page"><img src="/media/sunsense-side-banner.jpg" alt="Sunsense" /></a>
+												</div>
+                                                
+                                                <div class="mb20">
+													<a href="https://www.weldricks.co.uk/search?q=jungle+formula&filters=/search/non-presc/brand/jungle-formula"><img src="/media/jungle-formula-side-banner.jpg" alt="Jungle Formula" /></a>
+												</div>
+
+					                    							<div class="none">
+												<a href="/weldricks-blog/" target="_blank"><img src="/images/assets/Blog-side-banner.jpg" alt="Weldricks Pharmacy Blog" /></a>
+                                                </div>
+					            									
+										<div class="sidebar none" id="brand-listing">
+											<p style="height:30px"></p>
+					<a href="/brand/levonelle" title="View all products by Levonelle"><img style="margin-bottom:10px"  src="/images/general/brands/thumbs/levonelle.png" alt="Levonelle"></a><a href="/brand/alli" title="View all products by Alli"><img style="margin-bottom:10px"  src="/images/general/brands/thumbs/alli.png" alt="Alli"></a><a href="/brand/nurofen" title="View all products by Nurofen"><img style="margin-bottom:10px"  src="/images/general/brands/thumbs/nurofen.png" alt="Nurofen"></a><a href="/brand/seven-seas" title="View all products by Seven Seas"><img style="margin-bottom:10px"  src="/images/general/brands/thumbs/seven-seas.png" alt="Seven Seas"></a><a href="/brand/rennie" title="View all products by Rennie"><img style="margin-bottom:10px"  src="/images/general/brands/thumbs/rennie.png" alt="Rennie"></a><a href="/brand/sudafed" title="View all products by Sudafed"><img style="margin-bottom:10px"  src="/images/general/brands/thumbs/sudafed.png" alt="Sudafed"></a><a href="/brand/tena" title="View all products by Tena"><img style="margin-bottom:10px"  src="/images/general/brands/thumbs/tena.png" alt="Tena"></a><a href="/brand/lemsip" title="View all products by Lemsip"><img style="margin-bottom:10px"  src="/images/general/brands/thumbs/lemsip.png" alt="Lemsip"></a><a href="/brand/calpol" title="View all products by Calpol"><img style="margin-bottom:10px"  src="/images/general/brands/thumbs/calpol.png" alt="Calpol"></a><a href="/brand/beechams" title="View all products by Beechams"><img style="margin-bottom:10px"  src="/images/general/brands/thumbs/beechams.png" alt="Beechams"></a>   
+										</div>
+					                                        <div class="mt40">
+                                            <div class="trustpilot-widget" data-locale="en-GB" data-template-id="53aa8807dec7e10d38f59f32" data-businessunit-id="51eb357400006400055ce1f4" data-style-height="120px" data-style-width="100%" data-theme="light"></div>
+                                        </div>
+
+                                <div class="sidebar none" id="testimonials">
+                                    <h2 class="testimonial">testimonials</h2>
+                                    <div class="testimonial">
+                                        <div id='test' style='font-size: 12px;
+		font-family: Arial, Helvetica, sans-serif;
+		 text-align: left; line-height: 16px; padding-top: 10px; padding-right: 5px;
+		color: #003580;'>&ldquo;So efficient! I will most definitely be using Weldricks again and will highly recommend you to friends and family...&rdquo;</div><div id='customer' style='font-size: 10px;
+		font-family: Arial, Helvetica, sans-serif; text-align: right; padding-top: 10px; padding-bottom: 10px;
+		color: #000000;'>- N. Hurst, Hampshire.</div>                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+</div>	
+    <div class="footer">
+    	<div class="foot">
+        
+        	<div class="trustpilot-widget mb20" data-locale="en-GB" data-template-id="54ad5defc6454f065c28af8b" data-businessunit-id="51eb357400006400055ce1f4" data-style-height="220px" data-style-width="100%" data-theme="dark" data-stars="5"></div>
+            
+            <div class="wel">
+            	<h3>Weldricks Pharmacy</h3>
+                <p>Unit 3B White Rose Park</p>
+                <p>Ten Pound Walk</p>
+                <p>Doncaster</p>
+                <p>South Yorkshire</p>
+                <p>DN4 5FB</p>
+                <p><span class="bold">GPhC no. 1111567</span></p>
+                <p>Superintendent Pharmacist:</p>
+                <p>Richard Wells (2028132)</p>
+                
+                
+            </div>
+            
+            <div class="gphc">
+                <div class="l" style="margin-top:39px">
+                    <a id='lnkPharmacyRegulation' href='http://pharmacyregulation.org/registers/pharmacy/registrationnumber/1111567'><img id="imgLogo" alt="Online Pharmacy Logo" src="/media/pharmacy.png" style='height:36px;width:91px;border-width:0px;'  /></a>
+                    <p><a id='lnkWhatIsThis' href='http://pharmacyregulation.org/registration/internet-pharmacy'>What is this?</a></p>
+                </div>
+                <div id="mhra-fmd-placeholder" class="l ml20">
+                	<a href="http://medicine-seller-register.mhra.gov.uk/search-registry/12" target="_blank">
+                    	<img src="https://pclportal.mhra.gov.uk/analytics/LogoSancoInternet_UK_B-336.png" width="90px" />
+                    </a>
+                    <p><a href="/mhra-logo">What is this?</a></p>
+                </div>
+                <div class="c"></div>
+            </div>
+            
+            <div class="l">
+                <div class="links1">
+                    <h3>Shopping</h3>
+                    <ul>
+                        <li><a href="/my-account">Account</a></li>
+                        <li><a href="/basket">Basket</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                        <li><a href="/customer-care">Customer Care</a></li>
+                        <li><a href="/weldricks-blog/" target="_blank">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="links2">
+                    <h3>Online</h3>
+                    <ul>
+                        <li><a href="/cookies" target="_blank">Cookie Information</a></li>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms &amp; Conditions</a></li>
+                        <li><a href="/vacancies">Vacancies</a></li>
+                    </ul>
+                </div>
+                
+                <div class="links3">
+                    <h3>About Us</h3>
+                    <ul>
+                        <li><a href="/about">History</a></li>
+                        <!--
+                        <li><a href="http://www.facebook.com/hiweldricks" target="_blank">Facebook</a></li>
+                        <li><a href="http://twitter.com/weldricks_health" target="_blank">Twitter</a></li>
+                        -->
+                        <li><a href="/media/weee.pdf">WEEE</a></li>
+                        <li><a href="/complaints">Complaints</a></li>
+                        <li><a href="/sitemap">Sitemap</a></li>
+                    </ul>
+                </div>
+                <div class="links4">
+                    <h3>Social Media</h3>
+                    <ul>
+                        <li><a href="https://www.facebook.com/hiweldricks">Facebook</a></li>
+                        <!--
+                        <li><a href="http://www.facebook.com/hiweldricks" target="_blank">Facebook</a></li>
+                        <li><a href="http://twitter.com/weldricks_health" target="_blank">Twitter</a></li>
+                        -->
+                        <li><a href="https://twitter.com/weldricks">Twitter</a></li>
+                        <li><a href="https://plus.google.com/u/0/116735700026815155639/posts">Google+</a></li>
+                    </ul>
+                </div>
+                <p class="c"></p>
+                <div class="payments">
+                    <h3>Payment Types</h3>
+                    <div class="visa"></div>
+                    <div class="vd"></div>
+                    <div class="master"></div>
+                    <div class="maestro"></div>
+                    <div class="amex"></div>
+                    <div class="paypal"></div>
+
+                </div>
+            </div>
+            
+            
+            
+            <p class="c"></p>
+            
+            <div class="disclaimer">
+            	<p>Weldricks Pharmacy offers you a full range of pharmacy services including prescriptions, medicine sales and health and beauty sales and it is the trading name of HI Weldrick Ltd who are registered with the General Pharmaceutical Council (GPhC no. 1111567) and the MHRA Online Medicines Sellers Registry (Company Number C10842). Information on our site is provided for information purposes only and it should not be used as a substitute for the advice provided by your own GP or other medical professionals for the diagnosis/treatment of a health problem or disease.  We work hard to ensure all product information is correct but manufacturers sometimes change their packaging and products so you should use our site information as a reference only and carefully read all product packaging and information leaflets provided with your medication. Should you need assistance when placing any orders please contact our customer service team on; 0845 402 4409.  <a href="/terms" target="_blank">Please see our terms and conditions</a>. &copy;2015 HI Weldrick Ltd</p>
+            </div>
+        </div>
+    </div>		
+        
+<div id="live-basket-overlay">
+    <div id="close-overlay"><a href="/">close</a></div>
+    <div id="you-have-added">This item has been added to your <strong>basket</strong></div>
+    <div id="overlay-continue-shopping"><a href="/"><img src="/images/core/live-basket-overlay/continue-shopping.png" alt="continue shopping"></a></div>
+    <div id="overlay-go-to-basket"><a href="/basket"><img src="/images/core/live-basket-overlay/go-to-checkout.png" alt="go to checkout"></a></div>
+</div><!-- Start Alexa Certify Javascript -->
+<script type="text/javascript">
+_atrk_opts = { atrk_acct:"fjcel1awEti24B", domain:"weldricks.co.uk",dynamic: true};
+(function() { var as = document.createElement('script'); as.type = 'text/javascript'; as.async = true; as.src = "https://d31qbv1cthcecs.cloudfront.net/atrk.js"; var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(as, s); })();
+</script>
+<noscript><img src="https://d5nxst8fruw4z.cloudfront.net/atrk.gif?account=fjcel1awEti24B" style="display:none" height="1" width="1" alt="" /></noscript>
+<!-- End Alexa Certify Javascript -->
+
+
+<!-- Crazy Egg Heatmap -->
+<script type="text/javascript">
+setTimeout(function(){var a=document.createElement("script");
+var b=document.getElementsByTagName("script")[0];
+a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0033/7359.js?"+Math.floor(new Date().getTime()/3600000);
+a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+</script>  
+
+{% endblock %}

@@ -1,0 +1,55 @@
+
+{% load staticfiles %}
+{% load product_extras %}
+
+  <!-- --------------The Nav Bar--------------------- -->
+        <div id="nav">
+          <ul>
+            {% for cat in catalog %}
+            <li id="navel_0" class="nojs  first">
+              
+                <a href="{{cat.slug}}">{{cat.name}}</a>
+      
+               
+              <div class="subnav norm wide">
+                <div class="subnav-inset">&nbsp;</div>
+                <div class="subnav-join">&nbsp;</div>
+                <div class="submenu">
+                  <div class="hdrbar">&nbsp;</div>
+                  <ul>
+                    
+                     {% get_catc category cat %}
+                          {% for item in answer  %}
+                              <li><a href="/embarrassing/cat/acne">{{item.name}}</a></li>
+                          {% endfor %}
+                  </ul>
+                    <div class="btmbar">&nbsp;</div>
+                </div>
+              </div>
+              
+
+            </li>
+          {% endfor %}
+              
+                
+              
+              <li id="navel_8" class="nojs "><a href="/seasonal">Seasonal</a>
+                <div class="subnav rev">
+                <div class="subnav-inset">&nbsp;</div>
+                <div class="subnav-join">&nbsp;</div>
+                <div class="submenu">
+                  <div class="hdrbar">&nbsp;</div>
+                  <ul>
+                    <li><a href="/seasonal/cat/allergy-offers">Allergy Offers</a></li>
+                    <li><a href="/seasonal/cat/new-products">New Products</a></li>
+                    <li><a href="/seasonal/cat/september-offers">September Offers</a></li>
+                      </ul>
+                    <div class="btmbar">&nbsp;</div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+        </div>
+          </div>
+        <p class="c"></p>    </nav>
+
